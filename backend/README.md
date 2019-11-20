@@ -4,7 +4,7 @@
 
 <!-- TODO: add prereqs: node etc -->
 
-1. Create .env file, using `example.env`
+1. Create `.env` file, using `example.env`
 
     ```console
     $ cp example.env .env

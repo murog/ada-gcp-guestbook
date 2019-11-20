@@ -54,3 +54,27 @@ describe('post messages', () => {
             });	
     });	
 });
+
+describe('get stickers', () => {
+    xit('should load', (done) => {
+        chai.request(app)
+            .get('/stickers')
+            .end((err, res) => {
+                const result = res.statusCode;
+                expect(result).to.equal(200)
+                done()
+            });
+    });
+    xit('should return stickers', (done) => {
+        chai.request(app)
+            .get('/stickers')
+            .end((err, res) => {
+                const result = res.body
+                expect(result).length.greaterThan(0)
+                result.forEach((message) => {
+                    expect(message).include.keys('name', 'stickerUrl')
+                });
+                done()
+            });
+    })
+});

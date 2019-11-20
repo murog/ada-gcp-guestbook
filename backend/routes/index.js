@@ -41,4 +41,8 @@ router.post('/messages', (req, res) => {
     }
 });
 
+// Handles GET requests to /messages
+router.get('/stickers', (req, res) => {
+// TODO: get collection of stickers from storage bucket
+});
 module.exports = router;

@@ -1,67 +1,41 @@
-const mongoose = require('mongoose')
+// TODO: require postgres
 
-const GUESTBOOK_DB_ADDR = process.env.GUESTBOOK_DB_ADDR; 
-const mongoURI = "mongodb://" + GUESTBOOK_DB_ADDR + "/guestbook"
+// TODO: if cloudsql disconnected
 
-const db = mongoose.connection;
+// TODO: if cloudsql errors out
 
-db.on('disconnected', () => {
-    console.error(`Disconnected: unable to reconnect to ${mongoURI}`)
-    throw new Error(`Disconnected: unable to reconnect to ${mongoURI}`) 
-})
-db.on('error', (err) => {
-    console.error(`Unable to connect to ${mongoURI}: ${err}`);
-});
+// TODO: once connected, log "connect to cloudsql URI"
 
-db.once('open', () => {
-  console.log(`connected to ${mongoURI}`);
-});
+// TODO: connect to cloudSQL
 
-const connectToMongoDB = async () => {
-    await mongoose.connect(mongoURI, {
-        useNewUrlParser: true,
-        connectTimeoutMS: 2000,
-        reconnectTries: 1
-    })
-};
-
-const messageSchema = mongoose.Schema({
-    name: { type: String, required: [true, 'Name is required'] },
-    body: { type: String, required: [true, 'Message Body is required'] },
-    timestamps: {}
-});
-
-const messageModel = mongoose.model('Message', messageSchema);
+const connectToCloudSql = async () => {
+    // TODO: connect to cloudsql
+    console.log("connecting to cloudsql...")
+}
 
 const construct = (params) => {
-    const name = params.name
-    const body = params.body
-    const message = new messageModel({ name: name, body: body })
-    return message
+    // TODO:
+    console.log("constructing message...")
+    // const name = params.name;
+    // const body = params.body;
+    // const sticker = params.sticker;
+    // const message = new messageModel({ name: name, body: body, sticker: sticker })
+    // return message
 };
 
 const save = (message) => {
+    // TODO: save message
     console.log("saving message...")
-    message.save((err) => {
-        if (err) { throw err }
-    })
 };
 
 // Constructs and saves message
 const create = (params) => {
-    try {
-        const msg = construct(params)
-        const validationError = msg.validateSync()
-        if (validationError) { throw validationError }
-        save(msg)
-    } catch (error) {
-        throw error
-    }
+    // TODO: create message
+    console.log("creating message...")
 }
 
 module.exports = {
     create: create,
-    messageModel: messageModel,
-    connectToMongoDB: connectToMongoDB
+    connectToCloudSql: connectToCloudSql
 }
 

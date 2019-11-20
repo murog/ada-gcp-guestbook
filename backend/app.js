@@ -15,14 +15,14 @@ if(!process.env.PORT) {
   throw new Error(errMsg)
 }
 
-// if(!process.env.GUESTBOOK_DB_ADDR) {
-//   const errMsg = "GUESTBOOK_DB_ADDR environment variable is not defined"
-//   console.error(errMsg)
-//   throw new Error(errMsg)
-// }
+if(!process.env.GUESTBOOK_DB_ADDR) {
+  const errMsg = "GUESTBOOK_DB_ADDR environment variable is not defined"
+  console.error(errMsg)
+  throw new Error(errMsg)
+}
 
-// Connect to MongoDB, will retry only once
-// messages.connectToMongoDB()
+// Connect to CloudSQl, will retry only once
+messages.connectToCloudSql();
 
 // Starts an http server on the $PORT environment variable
 app.listen(PORT, () => {

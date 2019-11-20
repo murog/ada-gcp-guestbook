@@ -1,0 +1,50 @@
+steps:
+- id: 'install backend deps'
+  name: 'gcr.io/cloud-builders/npm'
+  dir: 'backend'
+  args: ['install']
+
+- id: 'run backend unit tests'
+  name: 'gcr.io/cloud-builders/npm'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+      set -euo pipefail
+      # set env vars
+      cp example.env .env
+      # run tests
+      npm test
+
+- id: 'build backend image'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+    docker build -t ada-guestbook-backend:test .
+
+- id: 'run backend container'
+  name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+      set -euo pipefail
+      # run container with name "backend"
+      # on network "cloudbuild"
+      # exposing ports 8000
+      # in detached mode
+      docker run --name backend --network cloudbuild -p 8000:8000 -d ada-guestbook-backend:test
+      # confirm container is running
+      docker ps
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+    curl -i backend:8000/messages

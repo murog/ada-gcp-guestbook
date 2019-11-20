@@ -2,6 +2,12 @@
 
 ## Setup
 
+### Running tests
+
+```console
+$ npm test
+```
+
 ## Functionality
 
 ### Messages
@@ -20,4 +26,7 @@ POST /messages
 
 ## Running locally
 
+```console
+
+```
 ## Deployment

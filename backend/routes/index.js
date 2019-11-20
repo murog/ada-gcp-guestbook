@@ -14,11 +14,11 @@ router.get('/messages', (req, res) => {
         // TODO: CloudSQL query
         const msg = {
             name: "Crisco",
-            message: "Northern pikas are most active and mostly feed soon after dawn and as dusk approaches.",
+            body: "Northern pikas are most active and mostly feed soon after dawn and as dusk approaches.",
             stickerUrl: "https://i.pinimg.com/originals/63/b3/49/63b349f74f7f2e498e1ca74c66b829fa.jpg",
             timestamp: "11-19-2019"
         };
-        res.status(200).json(msg);
+        res.status(200).json([msg]);
     } catch (error) {
         res.status(500).json(error);
     }

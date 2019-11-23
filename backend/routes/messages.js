@@ -8,7 +8,7 @@ const Knex = require('knex');
 
 // TODO: connect to cloudSQL
 
-const connectToCloudSql = async () => {
+const connectToCloudSql = () => {
     // TODO: connect to cloudsql.
     const config = {
         user: process.env.DB_USER, // e.g. 'my-user'
@@ -19,15 +19,10 @@ const connectToCloudSql = async () => {
     config.host = `/cloudsql/${process.env.CLOUD_SQL_CONNECTION_NAME}`;
 
     // Establish a connection to the database
-    Knex({
+    console.log("connecting to cloudsql...")
+    const knex = Knex({
         client: 'pg',
         connection: config,
-    }).then((result) => {
-        console.log("connected to cloudsql!");
-        return (result);
-    }).catch((err) => {
-        console.log("Failed to connect :(");
-        throw Error(err)
     });
 
 
@@ -57,7 +52,7 @@ const construct = (params, client) => {
 const save = (message, client) => {
     // TODO: save message
     console.log("saving message...")
-
+    console.log(client)
     client('messages').insert(message).then((result) => {
         return result;
     }).catch((err) => {

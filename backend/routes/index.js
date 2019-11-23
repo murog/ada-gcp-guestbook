@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const Message = require('./messages')
 
 const pgClient = Message.connectToCloudSql();
+console.log(pgClient('messages'))
 
 const router = express.Router();
 router.use(bodyParser.json());
@@ -30,7 +31,7 @@ router.get('/messages', (req, res) => {
 // Handles POST requests to /messages
 router.post('/messages', (req, res) => {
     try {
-        Message.create(({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }));
+        Message.create(({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }, pgClient));
         res.status(200).send();
     } catch (err) {
         // TODO: validation error might look different in postgres

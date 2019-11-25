@@ -23,7 +23,6 @@ router.get('/messages', async (req, res) => {
         const msg = await Message.retrieve(pgClient);
         res.status(200).json(msg);
     } catch (error) {
-        
         res.status(500).json(error.error);
     }
 });

@@ -9,7 +9,7 @@ chai.use(chaiHttp);
 
 
 describe('get messages', () => {
-    ;
+ 
     before(() => {
         tracker.install()
         tracker.on('query', (query) => {

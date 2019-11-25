@@ -1,19 +1,7 @@
-// TODO: require postgres
-
-// TODO: if cloudsql disconnected
-
-// TODO: if cloudsql errors out
-
-// TODO: once connected, log "connect to cloudsql URI"
-
-// TODO: connect to cloudSQL
-
-
 const knex = require('knex');
 const mockKnex = require('mock-knex');
 let connection;
 const connectToCloudSql = () => {
-    // TODO: connect to cloudsql.
     const config = {
         user: process.env.DB_USER, // e.g. 'my-user'
         password: process.env.DB_PASS, // e.g. 'my-user-password'

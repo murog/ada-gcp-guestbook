@@ -95,6 +95,26 @@ describe('post messages', () => {
                 });	
         });	
     });
+    describe('all other errors', () => {
+        before(() => {
+            tracker.install()
+            tracker.on('query', (query) => {
+                query.reject(Error());
+            });
+        });	
+        after(() => {
+            tracker.uninstall()
+        });
+        it('given empty message, should fail', (done) => {	
+            chai.request(app)	
+                .post('/messages').send({})	
+                .end((err, res) => {	
+                    const result = res.statusCode;	
+                    expect(result).to.equal(500);	
+                    done();	
+                });	
+        });	
+    });
     describe('valid message', () => {
         before(() => {
             tracker.install()

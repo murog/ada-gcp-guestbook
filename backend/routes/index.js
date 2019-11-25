@@ -26,7 +26,6 @@ router.post('/messages', async (req, res) => {
         await Message.create({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }, pgClient);
         res.status(200).json("successfully inserted message into database");
     } catch (err) {
-        // TODO: validation error might look different in postgres
         if (err.routine == "ExecConstraints") {
             console.error('validation error: ' + err);
             res.status(400).json(err);

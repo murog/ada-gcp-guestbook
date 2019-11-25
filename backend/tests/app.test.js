@@ -9,7 +9,6 @@ chai.use(chaiHttp);
 
 
 describe('get messages', () => {
-    ;
     before(() => {
         tracker.install()
         tracker.on('query', (query) => {
@@ -24,6 +23,9 @@ describe('get messages', () => {
             query.response(results);
         });
     });	
+    after(() => {
+        tracker.uninstall()
+    })
     it('should load', (done) => {	
         chai.request(app)	
             .get('/messages')	
@@ -45,6 +47,28 @@ describe('get messages', () => {
                 done()	
             });	
     }) 	
+});	
+
+describe('get messages cannot connect', () => {
+    before(() => {
+        tracker.install()
+        tracker.on('query', (query) => {
+            query.reject("Could not connect to postgres");
+        });
+    });	
+    after(() => {
+        tracker.uninstall()
+    })
+    it('should return a server error status code', (done) => {	
+        chai.request(app)	
+            .get('/messages')	
+            .end((err, res) => {	
+                const result = res.statusCode;	
+                expect(result).to.equal(500)	
+                done()	
+            });	
+    });	
+    
 });	
 
 describe('post messages', () => {	

@@ -2,7 +2,7 @@
 
 const retrieve = async (knex) => {
     try {
-        results = await knex.select("*")
+        results = await knex.select("name", "body", "timestamp", "stickerurl")
             .from("messages")
             .orderBy("timestamp", "desc");
         return results;
@@ -15,7 +15,7 @@ const construct = (params) => {
     // TODO:
     console.log("constructing message...")
     const {name, body, sticker} = params;
-    const message = {name: name, body: body, stickerUrl: sticker}
+    const message = {name: name, body: body, stickerurl: sticker}
     return message
 };
 

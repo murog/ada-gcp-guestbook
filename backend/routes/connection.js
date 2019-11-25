@@ -15,6 +15,7 @@ const connectToCloudSql = () => {
     const connection = knex({
         client: 'pg',
         connection: config,
+        debug: true
     });
 
     connection.client.pool.max = 5;

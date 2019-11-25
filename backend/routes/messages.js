@@ -25,7 +25,6 @@ const create = async (params, knex) => {
     console.log("creating message...")
     const message = construct(params);
     result = await save(message, knex);
-    console.log(result);
     return result;
 }
 

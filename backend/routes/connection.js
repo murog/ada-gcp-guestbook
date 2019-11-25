@@ -29,12 +29,12 @@ const connectToCloudSql = () => {
         connection: config,
     });
 
-    knex.client.pool.max = 5;
-    knex.client.pool.min = 5;
-    knex.client.pool.createTimeoutMillis = 30000;
-    knex.client.pool.idleTimeoutMillis = 600000;
-    knex.client.pool.createRetryIntervalMillis = 200;
-    knex.client.pool.acquireTimeoutMillis = 600000;
+    connection.client.pool.max = 5;
+    connection.client.pool.min = 5;
+    connection.client.pool.createTimeoutMillis = 30000;
+    connection.client.pool.idleTimeoutMillis = 600000;
+    connection.client.pool.createRetryIntervalMillis = 200;
+    connection.client.pool.acquireTimeoutMillis = 600000;
 
 
     return connection;

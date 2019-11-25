@@ -11,7 +11,7 @@ const construct = (params) => {
     // TODO:
     console.log("constructing message...")
     const {name, body, sticker} = params;
-    const message = {name: name, body: body, stickerUrl: sticker}
+    const message = {name: name, body: body, stickerurl: sticker}
     return message
 };
 
@@ -23,11 +23,13 @@ const save = async (message, knex) => {
 };
 
 // Constructs and saves message
-const create = (params, knex) => {
+const create = async (params, knex) => {
     // TODO: create message
     console.log("creating message...")
     const message = construct(params);
-    save(message, knex)
+    result = await save(message, knex);
+    console.log(result);
+    return result;
 }
 
 

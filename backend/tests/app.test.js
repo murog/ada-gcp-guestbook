@@ -73,29 +73,53 @@ describe('get messages cannot connect', () => {
 });	
 
 describe('post messages', () => {	
-    xit('given empty message, should fail', (done) => {	
-        chai.request(app)	
-            .post('/messages').send({})	
-            .end((err, res) => {	
-                const result = res.statusCode;	
-                expect(result).to.equal(400);	
-                done();	
-            });	
-    });	
-    it('given valid message, should succeed', (done) => {	
-        const testMsg = {
-            name: 'test title',
-            body: 'test body',
-            sticker: 'test sticker'
-        }
-        chai.request(app)	
-            .post('/messages').send(testMsg)	
-            .end((err, res) => {	
-                const result = res.statusCode;	
-                expect(result).to.equal(200);	
-                done();	
-            });	
-    });	
+    describe('invalid message', () => {
+        before(() => {
+            tracker.install()
+            tracker.on('query', (query) => {
+                err = Error("null value in column 'name' violates not-null constraint");
+                err.routine = "ExecConstraints"
+                query.reject(err);
+            });
+        });	
+        after(() => {
+            tracker.uninstall()
+        });
+        it('given empty message, should fail', (done) => {	
+            chai.request(app)	
+                .post('/messages').send({})	
+                .end((err, res) => {	
+                    const result = res.statusCode;	
+                    expect(result).to.equal(400);	
+                    done();	
+                });	
+        });	
+    });
+    describe('valid message', () => {
+        before(() => {
+            tracker.install()
+            tracker.on('query', (query) => {
+                query.response("successfully inserted message into database");
+            });
+        });	
+        after(() => {
+            tracker.uninstall()
+        });
+        it('given valid message, should succeed', (done) => {	
+            const testMsg = {
+                name: 'test title',
+                body: 'test body',
+                sticker: 'test sticker'
+            }
+            chai.request(app)	
+                .post('/messages').send(testMsg)	
+                .end((err, res) => {	
+                    const result = res.statusCode;	
+                    expect(result).to.equal(200);	
+                    done();	
+                });	
+        });	
+    });
 });
 
 describe('get stickers', () => {

@@ -13,13 +13,6 @@ router.get('/messages', async (req, res) => {
 
     // Query for messages in descending order
     try {
-        // TODO: CloudSQL query
-        // const msg = {
-        //     name: "Crisco",
-        //     body: "Northern pikas are most active and mostly feed soon after dawn and as dusk approaches.",
-        //     stickerUrl: "https://i.pinimg.com/originals/63/b3/49/63b349f74f7f2e498e1ca74c66b829fa.jpg",
-        //     timestamp: "11-19-2019"
-        // };
         const msg = await Message.retrieve(pgClient);
         res.status(200).json(msg);
     } catch (error) {
@@ -28,13 +21,13 @@ router.get('/messages', async (req, res) => {
 });
 
 // Handles POST requests to /messages
-router.post('/messages', (req, res) => {
+router.post('/messages', async (req, res) => {
     try {
-        Message.create({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }, pgClient);
-        res.status(200).send();
+        await Message.create({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }, pgClient);
+        res.status(200).json("successfully inserted message into database");
     } catch (err) {
         // TODO: validation error might look different in postgres
-        if (err.name == "ValidationError") {
+        if (err.routine == "ExecConstraints") {
             console.error('validation error: ' + err);
             res.status(400).json(err);
         } else {

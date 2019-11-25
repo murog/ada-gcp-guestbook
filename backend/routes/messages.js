@@ -1,80 +1,46 @@
-// TODO: require postgres
-const Knex = require('knex');
-// TODO: if cloudsql disconnected
-
-// TODO: if cloudsql errors out
-
-// TODO: once connected, log "connect to cloudsql URI"
-
-// TODO: connect to cloudSQL
-
-const connectToCloudSql = () => {
-    // TODO: connect to cloudsql.
-    const config = {
-        user: process.env.DB_USER, // e.g. 'my-user'
-        password: process.env.DB_PASS, // e.g. 'my-user-password'
-        database: process.env.DB_NAME, // e.g. 'my-database'
-    };
-
-    config.host = `/cloudsql/${process.env.CLOUD_SQL_CONNECTION_NAME}`;
-
-    // Establish a connection to the database
-    console.log("connecting to cloudsql...")
-    const knex = Knex({
-        client: 'pg',
-        connection: config,
-    });
 
 
-    return knex;
+const retrieve = async (knex) => {
+    try {
+        results = await knex.select("*")
+            .from("messages")
+            .orderBy("timestamp", "desc");
+        return results;
+    } catch (err) {
+        throw Error(err);
+    }
 }
 
-const retrieve = (client) => {
-    client.select('name', 'body', 'stickerUrl', "timestamp")
-        .from("messages")
-        .orderBy("timestamp", "desc").then((result) => {
-            return result;
-        }).catch((err) => {
-            throw Error(err);
-        })
-}
-
-const construct = (params, client) => {
+const construct = (params) => {
     // TODO:
     console.log("constructing message...")
-    // const name = params.name;
-    // const body = params.body;
-    // const sticker = params.sticker;
-    // const message = new messageModel({ name: name, body: body, sticker: sticker })
-    // return message
+    const {name, body, sticker} = params;
+    const message = {name: name, body: body, stickerUrl: sticker}
+    return message
 };
 
-const save = (message, client) => {
+const save = async (message, knex) => {
     // TODO: save message
     console.log("saving message...")
-    console.log(client)
-    client('messages').insert(message).then((result) => {
-        return result;
-    }).catch((err) => {
+    try {
+        return await knex.insert(message).into('messages');
+    } catch (err) {
         throw Error(err);
-    })
+    }
+    
 };
 
 // Constructs and saves message
-const create = (params, client) => {
+const create = (params, knex) => {
     // TODO: create message
     console.log("creating message...")
     const message = construct(params);
-    save(message, client).then((result) => {
-        return result;
-    }).catch((err) => {
-        throw Error(err);
-    })
+    save(message, knex)
 }
+
 
 module.exports = {
     create: create,
     retrieve: retrieve,
-    connectToCloudSql: connectToCloudSql
 }
 

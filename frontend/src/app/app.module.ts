@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { MessageFormComponent } from './message-form/message-form.component';
+import { MessageDisplayComponent } from './message-display/message-display.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessageFormComponent
+    MessageFormComponent,
+    MessageDisplayComponent
   ],
   imports: [
     BrowserModule,

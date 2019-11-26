@@ -1,41 +1,36 @@
-// TODO: require postgres
 
-// TODO: if cloudsql disconnected
 
-// TODO: if cloudsql errors out
-
-// TODO: once connected, log "connect to cloudsql URI"
-
-// TODO: connect to cloudSQL
-
-const connectToCloudSql = async () => {
-    // TODO: connect to cloudsql
-    console.log("connecting to cloudsql...")
+const retrieve = async (knex) => {
+    results = await knex.select("name", "body", "timestamp", "stickerurl")
+        .from("messages")
+        .orderBy("timestamp", "desc");
+    return results; 
 }
 
 const construct = (params) => {
-    // TODO:
     console.log("constructing message...")
-    // const name = params.name;
-    // const body = params.body;
-    // const sticker = params.sticker;
-    // const message = new messageModel({ name: name, body: body, sticker: sticker })
-    // return message
+    const {name, body, sticker} = params;
+    const message = {name: name, body: body, stickerurl: sticker}
+    return message
 };
 
-const save = (message) => {
-    // TODO: save message
+const save = async (message, knex) => {
     console.log("saving message...")
+        return await knex.insert(message).into('messages');
+    
 };
 
 // Constructs and saves message
-const create = (params) => {
-    // TODO: create message
+const create = async (params, knex) => {
     console.log("creating message...")
+    const message = construct(params);
+    result = await save(message, knex);
+    return result;
 }
+
 
 module.exports = {
     create: create,
-    connectToCloudSql: connectToCloudSql
+    retrieve: retrieve,
 }
 

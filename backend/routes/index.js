@@ -23,7 +23,10 @@ router.get('/messages', async (req, res) => {
 // Handles POST requests to /messages
 router.post('/messages', async (req, res) => {
     try {
-        await Message.create({ name: req.body.name, body: req.body.body, sticker: req.body.sticker }, pgClient);
+        await Message.create(
+            { name: req.body.name, 
+            body: req.body.body, 
+            sticker: req.body.sticker }, pgClient);
         res.status(200).json("successfully inserted message into database");
     } catch (err) {
         if (err.routine == "ExecConstraints") {

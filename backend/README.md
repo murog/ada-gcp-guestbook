@@ -177,7 +177,7 @@ $ git merge database-branch
 
 Let's go over the changes. First, there's a new file, `connection.js`. This file exports a Knex client, which you will use to make your queries. Knex is a node library that constructs SQL queries for you and passes them into postgres. 
 ```
-onst connectToCloudSql = () => {
+const connectToCloudSql = () => {
     const config = {
         user: process.env.DB_USER, // e.g. 'my-user'
         password: process.env.DB_PASS, // e.g. 'my-user-password'

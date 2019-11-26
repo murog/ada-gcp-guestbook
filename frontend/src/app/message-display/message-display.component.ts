@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { MessageService } from "../message.service";
 
 @Component({
   selector: 'app-message-display',
   templateUrl: './message-display.component.html',
-  styleUrls: ['./message-display.component.scss']
+  styleUrls: ['./message-display.component.scss'],
+  providers:[ MessageService ]
 })
-export class MessageDisplayComponent {
+export class MessageDisplayComponent implements OnInit{
 
-  constructor() { }
-  messages = [
+  constructor(private messageService: MessageService) { }
+  // hard-coded for now
+  messages  = [
     {
       name: "Crisco",
       body: "Northern pikas are most active and mostly feed soon after dawn and as dusk approaches.",
@@ -16,6 +19,13 @@ export class MessageDisplayComponent {
       timestamp: "11-19-2019"
   }
   ]
+
+  ngOnInit() {
+    // this.messageService.getMessages()
+    // .subscribe( data =>{
+    //   this.messages = data as any;
+    // })
+  }
 
 
 }

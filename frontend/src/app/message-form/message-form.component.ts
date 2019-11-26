@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageFormService } from "./message-form.service"
+import { MessageService } from "../message.service"
 import { Message } from "../message"
 
 @Component({
   selector: 'app-message-form',
   templateUrl: './message-form.component.html',
   styleUrls: ['./message-form.component.scss'],
-  providers:[ MessageFormService ]
+  providers:[ MessageService ]
 })
 export class MessageFormComponent implements OnInit {
 
@@ -26,17 +26,17 @@ export class MessageFormComponent implements OnInit {
     this.model = new Message(null, null);
   }
   onSubmit() { 
-    this.messageFormService.postMessage(this.model)
+    this.messageService.postMessage(this.model)
     .subscribe(()=>{
       this.newMessage();
     })
   }
-  constructor(private messageFormService: MessageFormService) { }
+  constructor(private messageService: MessageService) { }
 
   ngOnInit() {
-    // this.messageFormService.getStickers()
+    // this.messageService.getStickers()
     // .subscribe( data =>{
-    //   this.stickers = data;
+    //   this.stickers = data as any;
     // })
   }
 

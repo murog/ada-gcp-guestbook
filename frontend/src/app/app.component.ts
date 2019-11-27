@@ -19,13 +19,13 @@ export class AppComponent implements OnInit{
       timestamp: "11-19-2019"
   }
   ]
-  
+
   //TODO: Uncomment this section once backend works
   getMessages() {
-    // this.messageService.getMessages()
-    //   .subscribe( data =>{
-    //     this.messages = data as any;
-    //   })
+    this.messageService.getMessages()
+      .subscribe( data =>{
+        this.messages = data as any;
+      })
   }
   
   ngOnInit() {

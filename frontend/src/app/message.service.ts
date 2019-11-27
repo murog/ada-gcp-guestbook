@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from './../environments/environment';
 
-const result = require('dotenv').config();
-if (result.error) {
-    console.log("Failed to load env variables from dotenv.")
-}
+
 
 @Injectable()
 export class MessageService {
-    constructor(private http: HttpClient) { }
 
-    baseUrl = process.env.BASE_URL
+    baseUrl: string;
+    constructor(private http: HttpClient) {
+        if (environment.production){
+            this.baseUrl= environment.baseURL;
+        } else {
+            this.baseUrl= environment.baseURL;
+        }
+     }
+
+    
+    
+    
 
     getStickers() {
         return this.http.get(this.baseUrl + "/stickers");

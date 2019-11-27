@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseURL: 'http://api-dot-myguestbook.appspot.com'
 };

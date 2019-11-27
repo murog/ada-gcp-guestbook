@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MessageService } from "../message.service"
 import { Message } from "../message"
 
@@ -9,6 +9,7 @@ import { Message } from "../message"
   providers:[ MessageService ]
 })
 export class MessageFormComponent implements OnInit {
+  @Input() loadMessageCallback : Function;
   // TODO: remove hard coded values when sticker endpoint is working
   stickers = ['https://media.giphy.com/media/yuOtad0VCOoH6/giphy.gif', 
               'https://media.giphy.com/media/3oKIPiE5AGlyMNht4c/giphy.gif',
@@ -27,7 +28,9 @@ export class MessageFormComponent implements OnInit {
   onSubmit() { 
     this.messageService.postMessage(this.model)
     .subscribe(()=>{
+      this.loadMessageCallback();
       this.newMessage();
+
     })
   }
   constructor(private messageService: MessageService) { }

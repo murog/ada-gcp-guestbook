@@ -1,0 +1,9 @@
+<section>
+<h3>My Messages:</h3>
+<div *ngFor="let msg of messages">
+    <p class="name">{{msg.name}}</p>
+    <p class="timestamp">{{msg.timestamp}}</p>
+    <img src={{msg.stickerUrl}} alt="sticker">
+    <p>{{msg.body}}</p>
+</div>
+</section>

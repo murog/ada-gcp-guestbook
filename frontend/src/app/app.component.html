@@ -1,0 +1,4 @@
+<h1>My Guestbook</h1>
+
+<app-message-display [messages]="messages"></app-message-display>
+<app-message-form [loadMessageCallback] = 'getMessages.bind(this)'></app-message-form>

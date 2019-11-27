@@ -9,8 +9,7 @@ import { Message } from "../message"
   providers:[ MessageService ]
 })
 export class MessageFormComponent implements OnInit {
-
-  // Hard-coded for now, until sticker endpoint is working
+  // TODO: remove hard coded values when sticker endpoint is working
   stickers = ['https://media.giphy.com/media/yuOtad0VCOoH6/giphy.gif', 
               'https://media.giphy.com/media/3oKIPiE5AGlyMNht4c/giphy.gif',
               'https://media.giphy.com/media/ao9DUiTKH60XS/giphy.gif',
@@ -33,6 +32,7 @@ export class MessageFormComponent implements OnInit {
   }
   constructor(private messageService: MessageService) { }
 
+  //TODO: Uncomment this section once backend works
   ngOnInit() {
     // this.messageService.getStickers()
     // .subscribe( data =>{

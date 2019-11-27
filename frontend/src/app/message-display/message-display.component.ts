@@ -10,7 +10,7 @@ import { MessageService } from "../message.service";
 export class MessageDisplayComponent implements OnInit{
 
   constructor(private messageService: MessageService) { }
-  // hard-coded for now
+  //TODO: Remove hard-coded value once backend works
   messages  = [
     {
       name: "Crisco",
@@ -20,6 +20,7 @@ export class MessageDisplayComponent implements OnInit{
   }
   ]
 
+  //TODO: Uncomment this section once backend works
   ngOnInit() {
     // this.messageService.getMessages()
     // .subscribe( data =>{

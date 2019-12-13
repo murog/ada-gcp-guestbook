@@ -23,8 +23,8 @@
         <p>Attach a sticker to your message:</p>
         <div class="sticker form-group" *ngFor="let sticker of stickers">
             <label>
-                <input type="radio" [(ngModel)]="model.stickerUrl" name="stickerUrl" value={{sticker}} checked>
-                <img src={{sticker}}>
+                <input type="radio" [(ngModel)]="model.stickerUrl" name="stickerUrl" value={{sticker.url}} checked>
+                <img src={{sticker.url}} alt={{sticker.name}}>
             </label>
         </div>
         <button type="submit" [disabled]="!messageForm.form.valid" class="btn btn-success">Submit</button>

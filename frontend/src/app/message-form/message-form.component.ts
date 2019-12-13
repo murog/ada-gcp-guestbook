@@ -11,14 +11,15 @@ import { Message } from "../message"
 export class MessageFormComponent implements OnInit {
   @Input() loadMessageCallback : Function;
   // TODO: remove hard coded values when sticker endpoint is working
-  stickers = ['https://media.giphy.com/media/yuOtad0VCOoH6/giphy.gif', 
-              'https://media.giphy.com/media/3oKIPiE5AGlyMNht4c/giphy.gif',
-              'https://media.giphy.com/media/ao9DUiTKH60XS/giphy.gif',
-              "https://media.giphy.com/media/tXSZwvc2JPl4Y/giphy.gif",
-              "https://media.giphy.com/media/t6HZilzz6W6Lm/giphy.gif",
-              "https://media.giphy.com/media/p2sjYFtiXA4Zq/giphy.gif",
-              "https://media.giphy.com/media/Q6nmoKHjaDSus/giphy.gif",
-              "https://media.giphy.com/media/mCWjhIng6Uw0w/giphy.gif"];
+    stickers = [];
+  // stickers = ['https://media.giphy.com/media/yuOtad0VCOoH6/giphy.gif', 
+  //             'https://media.giphy.com/media/3oKIPiE5AGlyMNht4c/giphy.gif',
+  //             'https://media.giphy.com/media/ao9DUiTKH60XS/giphy.gif',
+  //             "https://media.giphy.com/media/tXSZwvc2JPl4Y/giphy.gif",
+  //             "https://media.giphy.com/media/t6HZilzz6W6Lm/giphy.gif",
+  //             "https://media.giphy.com/media/p2sjYFtiXA4Zq/giphy.gif",
+  //             "https://media.giphy.com/media/Q6nmoKHjaDSus/giphy.gif",
+  //             "https://media.giphy.com/media/mCWjhIng6Uw0w/giphy.gif"];
   
   model = new Message(null, null);
 
@@ -37,10 +38,10 @@ export class MessageFormComponent implements OnInit {
 
   //TODO: Uncomment this section once backend works
   ngOnInit() {
-    // this.messageService.getStickers()
-    // .subscribe( data =>{
-    //   this.stickers = data as any;
-    // })
+    this.messageService.getStickers()
+    .subscribe( data =>{
+      this.stickers = data as any;
+    })
   }
 
 }

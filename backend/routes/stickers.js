@@ -4,7 +4,7 @@ const {Storage} = require('@google-cloud/storage');
 // Creates a client
 const storage = new Storage();
 
-const bucketName = process.env.STICKER_BUCKET
+const bucketName = process.env.STICKER_BUCKET;
 
 const stickerLink = `https://storage.googleapis.com/${bucketName}/`
 
@@ -14,10 +14,13 @@ const retrieve = async () => {
     try {
     const [files] = await storage.bucket(bucketName).getFiles();
     console.log('Files:');
-    let stickers = {}
+    let stickers = []
     files.forEach(file => {
         console.log(file.metadata.selfLink);
-        stickers[file.name] = stickerLink + file.name;
+        let sticker = {};
+        sticker.name = file.name;
+        sticker.url = stickerLink + file.name
+        stickers.push(sticker);
     });
     return stickers;
     } catch(err) {

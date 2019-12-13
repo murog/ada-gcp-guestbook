@@ -47,7 +47,19 @@ describe('get messages', () => {
                 });	
                 done()	
             });	
-    }) 	
+    })
+    
+    it('should return a sentiment', (done) => {
+        chai.request(app)
+            .get('/messages')
+            .end((err, res) => {
+                const result = res.body
+                expect(result).length.greaterThan(0)
+                expect(result[0].sentiment.score).mustEqual(0)
+                expect(result[0].sentiment.magnitude).mustEqual(0)
+            })
+            done();
+        });
 });	
 
 describe('get messages cannot connect', () => {
@@ -165,3 +177,5 @@ describe('get stickers', () => {
             });
     })
 });
+
+

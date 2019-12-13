@@ -48,3 +48,4 @@ steps:
   - '-c'
   - |
     curl -i backend:8000/messages
+    curl -i backend:8000/stickers

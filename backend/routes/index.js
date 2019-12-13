@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Message = require('./messages')
+const Stickers = require('./stickers')
 
 const pgClient = require("./connection")
 
@@ -40,7 +41,13 @@ router.post('/messages', async (req, res) => {
 });
 
 // Handles GET requests to /stickers
-router.get('/stickers', (req, res) => {
-    // TODO: get collection of stickers from storage bucket
+router.get('/stickers', async (req, res) => {
+    // get collection of stickers from storage bucket
+    try {
+        const stickers = await Stickers.retrieve();
+        res.status(200).json(stickers);
+    } catch (error) {
+        res.status(500).json(error.error);
+    }
 });
 module.exports = router;

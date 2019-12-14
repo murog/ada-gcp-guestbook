@@ -1,11 +1,19 @@
 steps:
 - id: 'install backend deps'
-  name: 'gcr.io/cloud-builders/npm'
+  name: 'node'
+  # name: 'gcr.io/cloud-builders/npm'
   dir: 'backend'
-  args: ['install']
+  # args: ['install']
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+    npm install
 
 - id: 'run backend unit tests'
-  name: 'gcr.io/cloud-builders/npm'
+  name: 'node'
+  # name: 'gcr.io/cloud-builders/npm'
   entrypoint: 'bash'
   dir: 'backend'
   args:

@@ -1,12 +1,14 @@
 const express = require('express');
+const cors = require('cors')
+
 const bodyParser = require('body-parser');
 const Message = require('./messages')
 const Stickers = require('./stickers')
-
 const pgClient = require("./connection")
 
 const router = express.Router();
 router.use(bodyParser.json());
+router.all('*', cors());
 
 // Handles GET requests to /messages
 router.get('/messages', async (req, res) => {
@@ -24,10 +26,11 @@ router.get('/messages', async (req, res) => {
 // Handles POST requests to /messages
 router.post('/messages', async (req, res) => {
     try {
+        console.log(req);
         await Message.create(
             { name: req.body.name, 
             body: req.body.body, 
-            sticker: req.body.sticker }, pgClient);
+            sticker: req.body.stickerUrl }, pgClient);
         res.status(200).json("successfully inserted message into database");
     } catch (err) {
         if (err.routine == "ExecConstraints") {

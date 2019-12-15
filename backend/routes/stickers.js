@@ -9,14 +9,11 @@ const bucketName = process.env.STICKER_BUCKET;
 const stickerLink = `https://storage.googleapis.com/${bucketName}/`
 
 const retrieve = async () => {
-    console.log('retrieving stickers...');
     // Lists files in the bucket
     try {
     const [files] = await storage.bucket(bucketName).getFiles();
-    console.log('Files:');
     let stickers = []
     files.forEach(file => {
-        console.log(file.metadata.selfLink);
         let sticker = {};
         sticker.name = file.name;
         sticker.url = stickerLink + file.name
@@ -26,7 +23,6 @@ const retrieve = async () => {
     } catch(err) {
         console.log(err);
     }
-
 }
 
 module.exports = {

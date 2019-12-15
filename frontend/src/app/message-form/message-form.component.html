@@ -1,6 +1,6 @@
 <section>
     <h3>Leave a Message!</h3>
-    <form (ngSubmit)="onSubmit()" #messageForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #messageForm="ngForm" enctype="application/json">
         <div class="form-group">
             <label for="name">Your name: </label>
             <input type="text" class="form-control" id="name" required

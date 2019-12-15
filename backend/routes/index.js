@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors')
+// const cors = require('cors')
 
 const bodyParser = require('body-parser');
 const Message = require('./messages')
@@ -8,7 +8,9 @@ const pgClient = require("./connection")
 
 const router = express.Router();
 router.use(bodyParser.json());
-router.all('*', cors());
+// router.all('*', cors());
+// +router.use(bodyParser.urlencoded({ extended: false }));
+// +router.all('*', cors({origin: '*'}));
 
 // Handles GET requests to /messages
 router.get('/messages', async (req, res) => {

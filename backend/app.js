@@ -16,9 +16,6 @@ const PORT = process.env.PORT
 
 app.use(cors())
 app.use('/', routes)
-// app.use(cors({
-//   origin: false
-// }))
 
 // Application will fail if environment variables are not set
 if (!process.env.PORT) {

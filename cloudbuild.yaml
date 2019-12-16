@@ -64,4 +64,4 @@ steps:
   args:
   - '-c'
   - |
-    gcloud beta run deploy backend --image gcr.io/ada-workshop-3/backend:$SHORT_SHA --platform managed
+    gcloud beta run deploy backend --image gcr.io/ada-workshop-3/backend:$SHORT_SHA --platform managed --region us-central1

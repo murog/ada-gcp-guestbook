@@ -57,6 +57,7 @@ describe('get messages', () => {
                 expect(result).length.greaterThan(0)
                 expect(result[0].sentiment.score).to.equal(0)
                 expect(result[0].sentiment.magnitude).to.equal(0)
+
             })
             done();
         });

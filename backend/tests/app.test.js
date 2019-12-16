@@ -155,7 +155,7 @@ describe('post messages', () => {
 });
 
 describe('get stickers', () => {
-    xit('should load', (done) => {
+    it('should load', (done) => {
         chai.request(app)
             .get('/stickers')
             .end((err, res) => {
@@ -164,18 +164,16 @@ describe('get stickers', () => {
                 done()
             });
     });
-    xit('should return stickers', (done) => {
+    it('should return stickers', (done) => {
         chai.request(app)
             .get('/stickers')
             .end((err, res) => {
                 const result = res.body
                 expect(result).length.greaterThan(0)
-                result.forEach((message) => {
-                    expect(message).include.keys('name', 'stickerUrl')
+                result.forEach((sticker) => {
+                    expect(sticker).include.keys('name', 'url')
                 });
                 done()
             });
-    })
+    });
 });
-
-

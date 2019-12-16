@@ -29,8 +29,9 @@ export class MessageService {
     }
 
     postMessage(message: Object){
-            const body = message;
-            const headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
+            const body = JSON.stringify(message);
+            // const body = message;
+            const headers = new HttpHeaders().set('Content-Type', 'application/json');
             return this.http.post<Object>(this.baseUrl + "/messages", body, { headers: headers });
     }
         

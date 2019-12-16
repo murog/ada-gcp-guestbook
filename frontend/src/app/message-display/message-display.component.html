@@ -1,10 +1,10 @@
 <section>
 <h3>My Messages:</h3>
 
-<div *ngFor="let msg of messages">
+<div *ngFor="let msg of messages" class={{getSentimentClass(msg)}}>
     <p class="name">{{msg.name}}</p>
     <p class="timestamp">{{msg.timestamp}}</p>
-    <img *ngIf="msg.stickerurl" src={{msg.stickerurl}} alt="sticker">
+    <img *ngIf="msg.stickerurl" src={{msg.stickerurl}} alt="a cool sticker">
     <p>{{msg.body}}</p>
 </div>
 </section>

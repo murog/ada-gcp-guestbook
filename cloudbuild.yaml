@@ -24,7 +24,7 @@ steps:
   args:
   - '-c'
   - |
-    docker build -t ada-guestbook-backend:test .
+    docker build -t ada-guestbook-backend:$SHORT_SHA .
 
 - id: 'run backend container'
   name: 'gcr.io/cloud-builders/docker'
@@ -38,7 +38,7 @@ steps:
       # on network "cloudbuild"
       # exposing ports 8000
       # in detached mode
-      docker run --name backend --network cloudbuild -p 8000:8000 -d ada-guestbook-backend:test
+      docker run --name backend --network cloudbuild -p 8000:8000 -d ada-guestbook-backend:$SHORT_SHA
       # confirm container is running
       docker ps
 - name: 'gcr.io/cloud-builders/docker'
@@ -49,3 +49,19 @@ steps:
   - |
     curl -i backend:8000/messages
     curl -i backend:8000/stickers
+
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+    docker push ada-guestbook-backend:$SHORT_SHA
+
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'bash'
+  dir: 'backend'
+  args:
+  - '-c'
+  - |
+    gcloud beta run deploy backend --image ada-guestbook-backend:$SHORT_SHA --platform managed
